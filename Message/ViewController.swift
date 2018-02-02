@@ -30,8 +30,17 @@ class ViewController: JSQMessagesViewController {
     }
     
     func setupFirebase() {
+        let rootRef = Database.database().reference()
         
-        
+        rootRef.queryLimited(toLast: 100).observe(DataEventType.childAdded, with: { (snapshot) in
+            let text = snapshot.value!["text"] as! String
+            let sender = snapshot.value!["from"] as! String
+            let name = snapshot.value!["name"] as! String
+            let message = JSQMessage(senderId: sender,
+                                     displayName: name, text: text)
+            self.messages?.append(message)
+            self.finishReceivingMessage()
+        })
     }
     
     func setupChatUI() {
@@ -87,6 +96,4 @@ class ViewController: JSQMessagesViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
