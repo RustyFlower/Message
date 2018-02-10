@@ -12,50 +12,34 @@ import JSQMessagesViewController
 
 class ViewController: JSQMessagesViewController {
     
-    var messages: [JSQMessage]?
-    
-    var incomingBubble: JSQMessagesBubbleImage!
-    var outgoingBubble: JSQMessagesBubbleImage!
-    var incomingAvatar: JSQMessagesAvatarImage!
-    var outgoingAvatar: JSQMessagesAvatarImage!
-    
+    var messages: [JSQMessage]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.senderId = "user1"
+        self.senderDisplayName = "Ren"
         setupFirebase()
-        setupChatUI()
         
-        self.messages = []
+        self.messages = [JSQMessage(senderId: "user1", displayName: "Ren", text: "test")]
     }
     
     func setupFirebase() {
         let rootRef = Database.database().reference()
-        
         rootRef.queryLimited(toLast: 100).observe(DataEventType.childAdded, with: { (snapshot) in
-            let text = snapshot.value!["text"] as! String
-            let sender = snapshot.value!["from"] as! String
-            let name = snapshot.value!["name"] as! String
-            let message = JSQMessage(senderId: sender,
-                                     displayName: name, text: text)
-            self.messages?.append(message)
+            let textSnapshotValue = snapshot.value as! NSDictionary
+            let text = textSnapshotValue["text"] as! String
+
+            let senderSnapshotValue = snapshot.value as! NSDictionary
+            let sender = senderSnapshotValue["from"] as! String
+
+            let nameSnapshotValue = snapshot.value as! NSDictionary
+            let name = nameSnapshotValue["name"] as! String
+
+            let message = JSQMessage(senderId: sender, displayName: name, text: text)
+            self.messages?.append(message!)
             self.finishReceivingMessage()
         })
-    }
-    
-    func setupChatUI() {
-        inputToolbar!.contentView!.leftBarButtonItem = nil
-        automaticallyScrollsToMostRecentMessage = true
-        
-        self.senderId = "user1"
-        self.incomingAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "icon_default")!, diameter: 64)
-        self.outgoingAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "icon_default")!, diameter: 64)
-        
-        let bubbleFactory = JSQMessagesBubbleImageFactory()
-        self.incomingBubble = bubbleFactory?.incomingMessagesBubbleImage(
-            with: UIColor.jsq_messageBubbleLightGray())
-        self.outgoingBubble = bubbleFactory?.outgoingMessagesBubbleImage(
-            with: UIColor.jsq_messageBubbleGreen())
     }
     
     //メッセージの送信
@@ -66,30 +50,34 @@ class ViewController: JSQMessagesViewController {
     
     func sendTextToDb(text: String) {
         //データベースへの送信（後述）
+        let rootRef = Database.database().reference()
+        let post = ["from": senderId,
+                    "name": senderDisplayName,
+                    "text": text]
+        let postRef = rootRef.childByAutoId()
+        postRef.setValue(post)
+        
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
-        return self.messages?[indexPath.item]
+        return messages[indexPath.row]
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
-        let message = self.messages?[indexPath.item]
-        if message?.senderId == self.senderId {
-            return self.outgoingBubble
+        let message = messages[indexPath.row]
+        if message.senderId == self.senderId {
+            return JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.blue)
+        } else {
+            return JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.black)
         }
-        return self.incomingBubble
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
-        let message = self.messages?[indexPath.item]
-        if message?.senderId == self.senderId {
-            return self.outgoingAvatar
-        }
-        return self.incomingAvatar
+        return JSQMessagesAvatarImageFactory.avatarImage(withUserInitials: messages[indexPath.row].senderDisplayName, backgroundColor: UIColor.lightGray, textColor: UIColor.white, font: UIFont.systemFont(ofSize: 10), diameter: 30)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.messages?.count)!
+        return messages.count
     }
         
     override func didReceiveMemoryWarning() {
