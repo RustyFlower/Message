@@ -13,12 +13,13 @@ import JSQMessagesViewController
 class ViewController: JSQMessagesViewController {
     
     var messages: [JSQMessage]!
+    var saveDatas = save()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.senderId = "user1"
-        self.senderDisplayName = "Ren"
+        self.senderId = saveDatas.saveData.object(forKey: "userid") as! String!
+        self.senderDisplayName = saveDatas.saveData.object(forKey: "username") as! String!
         setupFirebase()
         
         self.messages = [JSQMessage(senderId: "user1", displayName: "Ren", text: "test")]

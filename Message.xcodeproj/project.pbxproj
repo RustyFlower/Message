@@ -18,6 +18,8 @@
 		9A61B78F200A1630008C5FEC /* MessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61B78E200A1630008C5FEC /* MessageTests.swift */; };
 		9A61B79A200A1630008C5FEC /* MessageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A61B799200A1630008C5FEC /* MessageUITests.swift */; };
 		9A61B7A8200A178C008C5FEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A61B7A7200A178C008C5FEC /* GoogleService-Info.plist */; };
+		9AE7EDB220416BD60070CBC1 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7EDB120416BD60070CBC1 /* UserViewController.swift */; };
+		9AE7EDB4204172B70070CBC1 /* talkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7EDB3204172B70070CBC1 /* talkViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		9A61B799200A1630008C5FEC /* MessageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageUITests.swift; sourceTree = "<group>"; };
 		9A61B79B200A1630008C5FEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A61B7A7200A178C008C5FEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9AE7EDB120416BD60070CBC1 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		9AE7EDB3204172B70070CBC1 /* talkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = talkViewController.swift; sourceTree = "<group>"; };
 		9DD7019BA17D901EAEDB32FA /* Pods-MessageTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessageTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MessageTests/Pods-MessageTests.release.xcconfig"; sourceTree = "<group>"; };
 		C2554DD7B146B212F11006C9 /* Pods_MessageUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFB5E8D11E07AADDAD0CB559 /* Pods_MessageTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MessageTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +132,8 @@
 			children = (
 				9A61B779200A1630008C5FEC /* AppDelegate.swift */,
 				9A61B77B200A1630008C5FEC /* ViewController.swift */,
+				9AE7EDB120416BD60070CBC1 /* UserViewController.swift */,
+				9AE7EDB3204172B70070CBC1 /* talkViewController.swift */,
 				9A61B77D200A1630008C5FEC /* Main.storyboard */,
 				9A61B780200A1630008C5FEC /* Assets.xcassets */,
 				9A61B782200A1630008C5FEC /* LaunchScreen.storyboard */,
@@ -471,6 +477,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A61B77C200A1630008C5FEC /* ViewController.swift in Sources */,
+				9AE7EDB220416BD60070CBC1 /* UserViewController.swift in Sources */,
+				9AE7EDB4204172B70070CBC1 /* talkViewController.swift in Sources */,
 				9A61B77A200A1630008C5FEC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
