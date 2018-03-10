@@ -22,7 +22,7 @@ class ViewController: JSQMessagesViewController {
         self.senderDisplayName = saveDatas.saveData.object(forKey: "username") as! String!
         setupFirebase()
         
-        self.messages = [JSQMessage(senderId: "user1", displayName: "Ren", text: "test")]
+        self.messages = [JSQMessage(senderId: "user1", displayName: "Ren", text: "first message")]
     }
     
     func setupFirebase() {
